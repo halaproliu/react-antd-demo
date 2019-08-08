@@ -1,6 +1,6 @@
 const path = require('path')
 const { override, fixBabelImports, addLessLoader, addWebpackAlias } = require('customize-cra')
-function modifyOutputPath () {
+function modifyOutputPath (config) {
   // return function (config) {
   //   if (!config.output) {
   //     config.output = {}
@@ -10,6 +10,7 @@ function modifyOutputPath () {
   // }
   const paths = require('react-scripts/config/paths')
   paths.appBuild = path.join(path.dirname(paths.appBuild), 'docs')
+  return config
 }
 module.exports = override(
   fixBabelImports('import', {
