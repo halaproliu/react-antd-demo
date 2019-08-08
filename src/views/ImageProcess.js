@@ -72,26 +72,40 @@ class MyUpload extends Component {
     return true
   }
 
-  cssImageToPureImage(url) {
-    const filter = this.packageFiter()
-    const filterValue = filter ? `filter:${filter}` : ''
-    let img = new Image()
+  cssImageToPureImage() {
+    const dom = document.getElementById('inputImg')
+    const pixelRatio = window.devicePixelRatio || 1
+    // 图片宽高
+    const width = dom.offsetWidth * pixelRatio
+    const height = dom.offsetHeight * pixelRatio
+    // 复制DOM节点
+    const cloneDom = dom.cloneNode(true)
+    cloneDom.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml')
+
+    // 设置图片宽高
+    cloneDom.width = width
+    cloneDom.height = height
+
+    const img = new Image()
     img.onload = () => {
-      img.setAttribute('style', filterValue)
-      let filterImg = new Image()
-      filterImg.onload = () => {
-        let svgImg = new Image()
-        svgImg.onload = () => {
-          let canvas = document.createElement('canvas')
-          let ctx = canvas.getContext('2d')
-          ctx.drawImage(img, 0, 0)
-          this.downloadImage(canvas.toDataURL('image/png'))
-        }
-        svgImg.src = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><foreignObject><body xmlns="http://www.w3.org/1999/xhtml">${new XMLSerializer().serializeToString(filterImg).replace(/#/g, '%23').replace(/\n/g, '%0A')}</body></foreignObject></svg>`
+      let canvas = document.createElement('canvas')
+      canvas.width = width
+      canvas.height = height
+      let ctx = canvas.getContext('2d')
+      ctx.drawImage(img, 0, 0, width, height)
+      cloneDom.src = canvas.toDataURL()
+
+      const svgImg = new Image()
+      svgImg.onload = () => {
+        ctx.clearRect(0, 0, width, height)
+        ctx.drawImage(svgImg, 0, 0, width, height)
+        this.downloadImage(canvas.toDataURL('image/jpeg'))
       }
-      filterImg.src = img.src
+      svgImg.src = 'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '"><foreignObject x="0" y="0" width="100%" height="100%">'+
+        new XMLSerializer().serializeToString(cloneDom).replace(/#/g, '%23').replace(/\n/g, '%0A') +
+      '</foreignObject></svg>'
     }
-    img.src = url
+    img.src = cloneDom.src
   }
   downloadImage(img) {
     let a = document.createElement('a')
@@ -106,9 +120,9 @@ class MyUpload extends Component {
       if (Object.keys(this.state.filterObj).some(key => this.state.filterObj[key] > 0)) {
         const filter = this.packageFiter()
         const filterValue = { filter: filter }
-        uploadImg = (<Card style={{ width: 300 }} cover={<img src={img} alt="" style={filterValue} />} bodyStyle={{ display: 'none' }} />)
+        uploadImg = (<Card style={{ width: 300 }} cover={<img id="inputImg" src={img} alt="" style={filterValue} />} bodyStyle={{ display: 'none' }} />)
       } else {
-        uploadImg = (<Card style={{ width: 300 }} cover={<img src={img} alt="" />} bodyStyle={{ display: 'none' }} />)
+        uploadImg = (<Card style={{ width: 300 }} cover={<img id="inputImg" src={img} alt="" />} bodyStyle={{ display: 'none' }} />)
       }
     }
     return (
