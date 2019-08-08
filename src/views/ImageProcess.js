@@ -35,7 +35,18 @@ class MyUpload extends Component {
     reader.readAsDataURL(info.file.originFileObj)
     reader.onload = (e) => {
       this.setState({
-        img: e.target.result
+        img: e.target.result,
+        filterObj: {
+          blur: 0,
+          brightness: 0,
+          contrast: 0,
+          grayscale: 0,
+          opacity: 0,
+          saturate: 0,
+          'hue-rotate': 0,
+          invert: 0,
+          sepia: 0
+        }
       })
     }
   }
