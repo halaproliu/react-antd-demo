@@ -15,6 +15,7 @@ class MyUpload extends Component {
     filterObj: {}
   }
 
+  // 上传图片并显示图片
   onChange(info) {
     const { status } = info.file
     if (status !== 'uploading') {
@@ -28,6 +29,7 @@ class MyUpload extends Component {
       })
     }
   }
+  // 滤镜效果
   onSliderChange(value, type) {
     let unit = '%'
     switch (type) {
@@ -55,30 +57,36 @@ class MyUpload extends Component {
     return true
   }
 
-  createImage(url) {
-    const src = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg">
-    <foreignObject width="120" height="50">
-    <body xmlns="http://www.w3.org/1999/xhtml">
-    <img src="${url}" />
-    </body>
-    </foreignObject>
-    </svg>`
+  cssImageToPureImage(url) {
+    const filter = Object.values(this.state.filterObj).join(' ')
+    const filterValue = `filter:${filter}`
     let img = new Image()
-    img.onload = (e) => {
-      let canvas = document.createElement('canvas')
-      let ctx = canvas.getContext('2d')
-      ctx.drawImage(img, 0, 0)
-      const resultImg = canvas.toDataURL('image/png')
-      this.setState({
-        resultImg: resultImg
-      })
+    img.onload = () => {
+      img.setAttribute('style', filterValue)
+      let filterImg = new Image()
+      filterImg.onload = () => {
+        let svgImg = new Image()
+        svgImg.onload = () => {
+          let canvas = document.createElement('canvas')
+          let ctx = canvas.getContext('2d')
+          ctx.drawImage(img, 0, 0)
+          this.downloadImage(canvas.toDataURL('image/png'))
+        }
+        svgImg.src = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><foreignObject><body xmlns="http://www.w3.org/1999/xhtml">${new XMLSerializer().serializeToString(filterImg).replace(/#/g, '%23').replace(/\n/g, '%0A')}</body></foreignObject></svg>`
+      }
+      filterImg.src = img.src
     }
-    img.src = src
+    img.src = url
+  }
+  downloadImage(img) {
+    let a = document.createElement('a')
+    a.href = img
+    a.download = '滤镜图片'
+    a.click()
   }
   render() {
     let uploadImg
-    let resultImgObj
-    const { img, resultImg } = this.state
+    const { img } = this.state
     if (img) {
       if (!this.isEmptyObj(this.state.filterObj)) {
         const filter = Object.values(this.state.filterObj).join(' ')
@@ -88,14 +96,9 @@ class MyUpload extends Component {
         uploadImg = (<Card style={{ width: 300 }} cover={<img src={img} alt="" />} bodyStyle={{ display: 'none' }} />)
       }
     }
-    // if (resultImg) {
-    //   console.log(resultImg)
-    //   resultImgObj = (<Card style={{ width: 300 }} cover={<img src={resultImg} alt="" />} bodyStyle={{ display: 'none' }} />)
-    // }
     return (
       <div>
         {uploadImg}
-        {resultImgObj}
         <Upload listType="picture" fileList={this.state.fileList} onChange={this.onChange} style={{ marginTop: 30, display: 'block' }}>
           <Button>
             <Icon type="upload" /> 上传图片
@@ -116,7 +119,7 @@ class MyUpload extends Component {
           <MySlider style={{ marginLeft: 20 }} title="反转图像：" type="invert" onChange={this.onSliderChange}></MySlider>
           <MySlider style={{ marginLeft: 20 }} title="深褐色：" type="sepia" onChange={this.onSliderChange}></MySlider>
         </div>
-        <Button style={{ marginTop: 20 }} onClick={this.createImage(img)}>生成图片</Button>
+        <Button style={{ marginTop: 20 }} onClick={this.cssImageToPureImage.bind(this, img)}>生成图片</Button>
       </div>
     )
   }
