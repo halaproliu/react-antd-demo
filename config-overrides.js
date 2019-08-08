@@ -24,7 +24,7 @@ module.exports = override(
   }),
   addWebpackAlias({
     '@': path.resolve(__dirname, 'src'),
-    'imgs': path.resolve(__dirname, 'public/imgs')
+    '~': path.resolve(__dirname, 'public', 'imgs')
   }),
   modifyOutputPath()
 );

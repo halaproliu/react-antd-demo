@@ -34,5 +34,5 @@
     "less": "^3.9.0",
     "less-loader": "^5.0.0"
   },
-  "homepage": "./"
+  "homepage": "http://halaproliu.github.io/react-antd-demo"
 }

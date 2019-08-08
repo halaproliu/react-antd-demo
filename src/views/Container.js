@@ -8,8 +8,7 @@ const { Sider, Header, Content } = Layout
 class Container extends Component {
   state = { selectedKey: 'index' }
   componentWillMount() {
-    let key = window.location.pathname.slice(1)
-    console.log(window.location.pathname)
+    let key = window.location.hash.slice(2)
     key = key || 'index'
     this.setState({
       selectedKey: key
