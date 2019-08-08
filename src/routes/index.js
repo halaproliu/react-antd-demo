@@ -15,10 +15,6 @@ const routes = [{
   path: '/imageProcess',
   exact: true,
   component: ImageProcess
-}, {
-  path: '/4',
-  exact: true,
-  component: () => { }
 }]
 
 export default routes

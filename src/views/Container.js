@@ -9,6 +9,7 @@ class Container extends Component {
   state = { selectedKey: 'index' }
   componentWillMount() {
     let key = window.location.pathname.slice(1)
+    console.log(window.location.pathname)
     key = key || 'index'
     this.setState({
       selectedKey: key
@@ -48,12 +49,6 @@ class Container extends Component {
                 <span className="nav-text">图片处理</span>
               </Link>
             </Menu.Item>
-            {/* <Menu.Item key="4">
-              <Link to="/4">
-                <Icon type="user" />
-                <span className="nav-text">nav 4</span>
-              </Link>
-            </Menu.Item> */}
           </Menu>
         </Sider>
         <Layout>
