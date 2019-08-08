@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Slider } from 'antd'
 
 class MySlider extends Component {
+  static defaultProps = {
+    value: 0
+  }
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
@@ -16,7 +19,7 @@ class MySlider extends Component {
   render() {
     return (
       <div className="flex" style={this.props.style}>
-        <span>{this.props.title}</span><Slider style={{ width: 300 }} defaultValue={0} allowClear onChange={this.onChange}></Slider>
+        <span>{this.props.title}</span><Slider style={{ width: 300 }} value={this.props.value} defaultValue={0} allowClear onChange={this.onChange}></Slider>
       </div>
     )
   }

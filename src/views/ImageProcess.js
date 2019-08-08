@@ -12,7 +12,17 @@ class MyUpload extends Component {
     img: '',
     resultImg: '',
     fileList: [],
-    filterObj: {}
+    filterObj: {
+      blur: 0,
+      brightness: 0,
+      contrast: 0,
+      grayscale: 0,
+      opacity: 0,
+      saturate: 0,
+      'hue-rotate': 0,
+      invert: 0,
+      sepia: 0
+    }
   }
 
   // 上传图片并显示图片
@@ -31,23 +41,28 @@ class MyUpload extends Component {
   }
   // 滤镜效果
   onSliderChange(value, type) {
-    let unit = '%'
-    switch (type) {
-      case 'blur':
-        unit = 'px'
-        break
-      case 'hue-rotate':
-        unit = 'deg'
-        break
-      default:
-        unit = '%'
-    }
-    value += unit
     const filterObj = this.state.filterObj
-    filterObj[type] = `${type}(${value})`
+    filterObj[type] = value
     this.setState({
       filterObj: filterObj
     })
+  }
+
+  packageFiter () {
+    let arr = []
+    Object.keys(this.state.filterObj).forEach(type => {
+      switch (type) {
+        case 'blur':
+          this.state.filterObj[type] > 0 && arr.push(`${type}(${this.state.filterObj[type]}px)`)
+          break
+        case 'hue-rotate':
+          this.state.filterObj[type] > 0 && arr.push(`${type}(${this.state.filterObj[type]}deg)`)
+          break
+        default:
+          this.state.filterObj[type] > 0 && arr.push(`${type}(${this.state.filterObj[type]}%)`)
+      }
+    })
+    return arr.join(' ')
   }
 
   isEmptyObj(obj) {
@@ -58,8 +73,8 @@ class MyUpload extends Component {
   }
 
   cssImageToPureImage(url) {
-    const filter = Object.values(this.state.filterObj).join(' ')
-    const filterValue = `filter:${filter}`
+    const filter = this.packageFiter()
+    const filterValue = filter ? `filter:${filter}` : ''
     let img = new Image()
     img.onload = () => {
       img.setAttribute('style', filterValue)
@@ -88,8 +103,8 @@ class MyUpload extends Component {
     let uploadImg
     const { img } = this.state
     if (img) {
-      if (!this.isEmptyObj(this.state.filterObj)) {
-        const filter = Object.values(this.state.filterObj).join(' ')
+      if (Object.keys(this.state.filterObj).some(key => this.state.filterObj[key] > 0)) {
+        const filter = this.packageFiter()
         const filterValue = { filter: filter }
         uploadImg = (<Card style={{ width: 300 }} cover={<img src={img} alt="" style={filterValue} />} bodyStyle={{ display: 'none' }} />)
       } else {
@@ -105,19 +120,19 @@ class MyUpload extends Component {
           </Button>
         </Upload>
         <div className="flex" style={{ marginTop: 40 }}>
-          <MySlider title="模糊：" type="blur" onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="亮度：" type="brightness" onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="对比度：" type="contrast" onChange={this.onSliderChange}></MySlider>
+          <MySlider title="模糊：" type="blur" value={this.state.filterObj.blur} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={{ marginLeft: 20 }} title="亮度：" type="brightness" value={this.state.filterObj.brightness} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={{ marginLeft: 20 }} title="对比度：" type="contrast" value={this.state.filterObj.contrast} onChange={this.onSliderChange}></MySlider>
         </div>
         <div className="flex" style={{ marginTop: 10 }}>
-          <MySlider title="灰度：" type="grayscale" onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="透明度：" type="opacity" onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="饱和度：" type="saturate" onChange={this.onSliderChange}></MySlider>
+          <MySlider title="灰度：" type="grayscale" value={this.state.filterObj.grayscale} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={{ marginLeft: 20 }} title="透明度：" type="opacity" value={this.state.filterObj.opacity} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={{ marginLeft: 20 }} title="饱和度：" type="saturate" value={this.state.filterObj.saturate} onChange={this.onSliderChange}></MySlider>
         </div>
         <div className="flex" style={{ marginTop: 10 }}>
-          <MySlider title="色相旋转：" type="hue-rotate" onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="反转图像：" type="invert" onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="深褐色：" type="sepia" onChange={this.onSliderChange}></MySlider>
+          <MySlider title="色相旋转：" type="hue-rotate" value={this.state.filterObj['hue-rotate']} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={{ marginLeft: 20 }} title="反转图像：" type="invert" value={this.state.filterObj.invert} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={{ marginLeft: 20 }} title="深褐色：" type="sepia" value={this.state.filterObj.sepia} onChange={this.onSliderChange}></MySlider>
         </div>
         <Button style={{ marginTop: 20 }} onClick={this.cssImageToPureImage.bind(this, img)}>生成图片</Button>
       </div>
