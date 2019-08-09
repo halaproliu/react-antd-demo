@@ -9,7 +9,7 @@ const { TextArea } = Input
 
 class JsonView extends Component {
   state = {
-    jsonObject: null, // 格式化后的json对象
+    jsonObject: {}, // 格式化后的json对象
     jsonValue: '', // 输入的json字符串
     theme: 'rjv-default', // 主题
     iconStyle: 'circle', // 图标样式
