@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Upload, Card, Button, Icon } from 'antd'
 import { MySlider } from '../components'
+import { guid } from 'utils/common'
 
 class MyUpload extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ class MyUpload extends Component {
     })
   }
 
-  packageFiter () {
+  packageFiter() {
     let arr = []
     Object.keys(this.state.filterObj).forEach(type => {
       switch (type) {
@@ -112,16 +113,17 @@ class MyUpload extends Component {
         ctx.drawImage(svgImg, 0, 0, width, height)
         this.downloadImage(canvas.toDataURL('image/jpeg'))
       }
-      svgImg.src = 'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '"><foreignObject x="0" y="0" width="100%" height="100%">'+
+      svgImg.src = 'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '"><foreignObject x="0" y="0" width="100%" height="100%">' +
         new XMLSerializer().serializeToString(cloneDom).replace(/#/g, '%23').replace(/\n/g, '%0A') +
-      '</foreignObject></svg>'
+        '</foreignObject></svg>'
     }
     img.src = cloneDom.src
   }
   downloadImage(img) {
     let a = document.createElement('a')
     a.href = img
-    a.download = '滤镜图片'
+    const filename = guid()
+    a.download = filename
     a.click()
   }
   render() {

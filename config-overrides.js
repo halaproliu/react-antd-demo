@@ -1,6 +1,6 @@
 const path = require('path')
 const { override, fixBabelImports, addLessLoader, addWebpackAlias } = require('customize-cra')
-function modifyOutputPath (config) {
+function modifyOutputPath(config) {
   // return function (config) {
   //   if (!config.output) {
   //     config.output = {}
@@ -24,7 +24,8 @@ module.exports = override(
   }),
   addWebpackAlias({
     '@': path.resolve(__dirname, 'src'),
-    '~': path.resolve(__dirname, 'public', 'imgs')
+    '~': path.resolve(__dirname, 'public', 'imgs'),
+    'utils': path.resolve(__dirname, 'src', 'utils')
   }),
   modifyOutputPath()
 );
