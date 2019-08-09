@@ -4,6 +4,7 @@ import MyList from '../views/List'
 import ImageProcess from '../views/ImageProcess'
 import Table from '../views/Table'
 import JsonView from '../views/JsonView'
+import FileProcess from '../views/FileProcess'
 
 const routes = [{
   path: '/',
@@ -40,6 +41,13 @@ const routes = [{
   icon: 'snippets',
   menuKey: 'json',
   component: JsonView
+}, {
+  path: '/fileProcess',
+  exact: true,
+  title: '文件处理',
+  icon: 'file',
+  menuKey: 'fileProcess',
+  component: FileProcess
 }]
 
 export default routes

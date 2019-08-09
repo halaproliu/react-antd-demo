@@ -131,6 +131,9 @@ class MyUpload extends Component {
         uploadImg = (<Card style={{ width: 300 }} cover={<img id="inputImg" src={img} alt="" />} bodyStyle={{ display: 'none' }} />)
       }
     }
+    const style = {
+      marginLeft: 20
+    }
     return (
       <div>
         {uploadImg}
@@ -141,18 +144,18 @@ class MyUpload extends Component {
         </Upload>
         <div className="flex" style={{ marginTop: 40 }}>
           <MySlider title="模糊：" type="blur" value={this.state.filterObj.blur} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="亮度：" type="brightness" value={this.state.filterObj.brightness} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="对比度：" type="contrast" value={this.state.filterObj.contrast} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={style} title="亮度：" type="brightness" value={this.state.filterObj.brightness} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={style} title="对比度：" type="contrast" value={this.state.filterObj.contrast} onChange={this.onSliderChange}></MySlider>
         </div>
         <div className="flex" style={{ marginTop: 10 }}>
           <MySlider title="灰度：" type="grayscale" value={this.state.filterObj.grayscale} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="透明度：" type="opacity" value={this.state.filterObj.opacity} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="饱和度：" type="saturate" value={this.state.filterObj.saturate} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={style} title="透明度：" type="opacity" value={this.state.filterObj.opacity} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={style} title="饱和度：" type="saturate" value={this.state.filterObj.saturate} onChange={this.onSliderChange}></MySlider>
         </div>
         <div className="flex" style={{ marginTop: 10 }}>
           <MySlider title="色相旋转：" type="hue-rotate" value={this.state.filterObj['hue-rotate']} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="反转图像：" type="invert" value={this.state.filterObj.invert} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={{ marginLeft: 20 }} title="深褐色：" type="sepia" value={this.state.filterObj.sepia} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={style} title="反转图像：" type="invert" value={this.state.filterObj.invert} onChange={this.onSliderChange}></MySlider>
+          <MySlider style={style} title="深褐色：" type="sepia" value={this.state.filterObj.sepia} onChange={this.onSliderChange}></MySlider>
         </div>
         <Button style={{ marginTop: 20 }} onClick={this.cssImageToPureImage.bind(this, img)}>
           <Icon type="download"></Icon>下载图片

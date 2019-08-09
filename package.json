@@ -33,7 +33,8 @@
     "babel-plugin-import": "^1.12.0",
     "gh-pages": "^2.1.1",
     "less": "^3.9.0",
-    "less-loader": "^5.0.0"
+    "less-loader": "^5.0.0",
+    "shelljs": "^0.8.3"
   },
   "homepage": "http://halaproliu.github.io/react-antd-demo"
 }

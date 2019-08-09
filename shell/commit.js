@@ -1,0 +1,10 @@
+var shell = require('shelljs')
+
+if (shell.exec('npm run build').code !== 0) {
+  shell.echo('Error: NPM run build failed')
+  shell.exit(1)
+}
+
+shell.exec('git add .')
+shell.exec('git commit -m "auto commit"')
+shell.exec('git push')
