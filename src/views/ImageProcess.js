@@ -77,13 +77,6 @@ class MyUpload extends Component {
     return arr.join(' ')
   }
 
-  isEmptyObj(obj) {
-    for (let key in obj) {
-      return false
-    }
-    return true
-  }
-
   cssImageToPureImage() {
     const dom = document.getElementById('inputImg')
     const pixelRatio = window.devicePixelRatio || 1

@@ -1,6 +1,8 @@
-import { THEME, ICON_STYLE } from './jsonView'
+import { THEME, ICON_STYLE, ENABLE_EDIT, ENABLE_DATA_TYPE } from './jsonView'
 
 export {
   THEME,
-  ICON_STYLE
+  ICON_STYLE,
+  ENABLE_EDIT,
+  ENABLE_DATA_TYPE
 }
