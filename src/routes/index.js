@@ -3,6 +3,7 @@ import MyCard from '../views/Card'
 import MyList from '../views/List'
 import ImageProcess from '../views/ImageProcess'
 import Table from '../views/Table'
+import JsonView from '../views/JsonView'
 
 const routes = [{
   path: '/',
@@ -32,6 +33,13 @@ const routes = [{
   icon: 'table',
   menuKey: 'table',
   component: Table
+}, {
+  path: '/json',
+  exact: true,
+  title: 'JSON格式化',
+  icon: 'snippets',
+  menuKey: 'json',
+  component: JsonView
 }]
 
 export default routes

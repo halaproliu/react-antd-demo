@@ -1,9 +1,11 @@
-import MySlider from './Slider'
 import Main from './Main'
 import Siderbar from './Siderbar'
+import MySlider from './Slider'
+import MySelect from './Select'
 
 export {
-  MySlider,
   Main,
-  Siderbar
+  Siderbar,
+  MySlider,
+  MySelect
 }

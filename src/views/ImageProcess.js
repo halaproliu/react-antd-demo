@@ -161,7 +161,9 @@ class MyUpload extends Component {
           <MySlider style={{ marginLeft: 20 }} title="反转图像：" type="invert" value={this.state.filterObj.invert} onChange={this.onSliderChange}></MySlider>
           <MySlider style={{ marginLeft: 20 }} title="深褐色：" type="sepia" value={this.state.filterObj.sepia} onChange={this.onSliderChange}></MySlider>
         </div>
-        <Button style={{ marginTop: 20 }} onClick={this.cssImageToPureImage.bind(this, img)}>生成图片</Button>
+        <Button style={{ marginTop: 20 }} onClick={this.cssImageToPureImage.bind(this, img)}>
+          <Icon type="download"></Icon>下载图片
+        </Button>
       </div>
     )
   }
