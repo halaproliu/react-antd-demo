@@ -18,7 +18,8 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "commit": "node ./shell/commit.js"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -5,6 +5,11 @@ if (shell.exec('npm run build').code !== 0) {
   shell.exit(1)
 }
 
+if (!shell.which('git')) {
+  shell.echo('Sorry, this script requires git')
+  shell.exit(1)
+}
+
 shell.exec('git add .')
 shell.exec('git commit -m "auto commit"')
 shell.exec('git push')
