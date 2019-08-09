@@ -62,16 +62,17 @@ class JsonView extends Component {
   }
   render() {
     const { theme, iconStyle, jsonObject, jsonValue, isEnableEdit, isShowDataTypes } = this.state
-    let reactJson
-    if (isEnableEdit === 0) {
-      reactJson = (<ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0} onEdit={this.onEdit}></ReactJson>)
-    } else {
-      reactJson = (<ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0}></ReactJson>)
-    }
+    // let reactJson
+    // if (isEnableEdit === 0) {
+    //   reactJson = (<ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0} onEdit={this.onEdit}></ReactJson>)
+    // } else {
+    //   reactJson = (<ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0}></ReactJson>)
+    // }
     return (
       <div>
         <TextArea value={jsonValue} placeholder="Enter the json object" autosize={{ minRows: 4 }} onChange={this.onTextAreaChange}></TextArea>
-        {reactJson}
+        {/* {reactJson} */}
+        <ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0} onEdit={this.onEdit}></ReactJson>
         <div className="flex" style={{ marginTop: 40 }}>
           <MySelect title="主题：" type="theme" options={THEME} defaultValue={theme} onChange={this.onChange}></MySelect>
           <MySelect title="图标样式：" type="iconStyle" options={ICON_STYLE} defaultValue={iconStyle} onChange={this.onChange} style={{ marginLeft: 30 }}></MySelect>

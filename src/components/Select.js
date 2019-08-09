@@ -20,7 +20,7 @@ class MySelect extends Component {
   render() {
     const { title, defaultValue, options, style } = this.props
     let optionEl
-    if (isPlainObject) {
+    if (isPlainObject(options[0])) {
       optionEl = (
         options.map(({ key, value }, index) => (
           <Option value={key} key={index}>{value}</Option>
