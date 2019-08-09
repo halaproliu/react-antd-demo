@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactJson from 'react-json-view'
 
-import { THEME, ICON_STYLE, ENABLE_EDIT, ENABLE_DATA_TYPE } from '@/constant'
+import { THEME, ICON_STYLE, STATUS_LIST } from '@/constant'
 import { MySelect } from '@/components'
 import { processJsonString } from 'utils/common'
 import { Input } from 'antd'
@@ -14,7 +14,9 @@ class JsonView extends Component {
     theme: 'rjv-default', // 主题
     iconStyle: 'circle', // 图标样式
     isEnableEdit: 0, // 是否可以编辑
-    isShowDataTypes: 0 // 是否显示数据类型
+    isShowDataTypes: 0, // 是否显示数据类型
+    isEnableClipboard: 0, // 是否支持剪贴板
+    isShowObjectSize: 0 // 是否显示对象或数组size
   }
 
   constructor(props) {
@@ -42,6 +44,7 @@ class JsonView extends Component {
     let jsonObject = {}
     try {
       value = processJsonString(value) // 处理不规范的json字符串
+      console.log(value)
       jsonObject = JSON.parse(value)
       this.setState({
         jsonValue: value,
@@ -61,7 +64,7 @@ class JsonView extends Component {
     })
   }
   render() {
-    const { theme, iconStyle, jsonObject, jsonValue, isEnableEdit, isShowDataTypes } = this.state
+    const { theme, iconStyle, jsonObject, jsonValue, isEnableEdit, isShowDataTypes, isEnableClipboard, isShowObjectSize } = this.state
     // let reactJson
     // if (isEnableEdit === 0) {
     //   reactJson = (<ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0} onEdit={this.onEdit}></ReactJson>)
@@ -70,16 +73,20 @@ class JsonView extends Component {
     // }
     return (
       <div>
-        <TextArea value={jsonValue} placeholder="Enter the json object" autosize={{ minRows: 4 }} onChange={this.onTextAreaChange}></TextArea>
+        <TextArea value={jsonValue} placeholder="Enter the json object" autosize={{ minRows: 4 }} onChange={this.onTextAreaChange} />
         {/* {reactJson} */}
-        <ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0} onEdit={this.onEdit}></ReactJson>
+        <ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0} enableClipboard={isEnableClipboard === 0} displayObjectSize={isShowObjectSize === 0} onEdit={this.onEdit} />
         <div className="flex" style={{ marginTop: 40 }}>
-          <MySelect title="主题：" type="theme" options={THEME} defaultValue={theme} onChange={this.onChange}></MySelect>
-          <MySelect title="图标样式：" type="iconStyle" options={ICON_STYLE} defaultValue={iconStyle} onChange={this.onChange} style={{ marginLeft: 30 }}></MySelect>
+          <MySelect title="主题：" type="theme" options={THEME} defaultValue={theme} onChange={this.onChange} />
+          <MySelect title="图标样式：" type="iconStyle" options={ICON_STYLE} defaultValue={iconStyle} onChange={this.onChange} style={{ marginLeft: 30 }} />
         </div>
         <div className="flex" style={{ marginTop: 40 }}>
-          <MySelect title="是否可以编辑：" type="isEnableEdit" options={ENABLE_EDIT} defaultValue={isEnableEdit} onChange={this.onEnableChange}></MySelect>
-          <MySelect title="是否显示数据类型：" type="isShowDataTypes" options={ENABLE_DATA_TYPE} defaultValue={isShowDataTypes} onChange={this.onEnableChange} style={{ marginLeft: 30 }}></MySelect>
+          <MySelect title="是否可以编辑：" disabled type="isEnableEdit" options={STATUS_LIST} defaultValue={isEnableEdit} onChange={this.onEnableChange} />
+          <MySelect title="是否显示数据类型：" type="isShowDataTypes" options={STATUS_LIST} defaultValue={isShowDataTypes} onChange={this.onEnableChange} style={{ marginLeft: 30 }} />
+        </div>
+        <div className="flex" style={{ marginTop: 40 }}>
+          <MySelect title="是否支持剪贴板：" type="isEnableClipboard" options={STATUS_LIST} defaultValue={isEnableClipboard} onChange={this.onEnableChange} />
+          <MySelect title="是否显示对象或数组size：" type="isShowObjectSize" options={STATUS_LIST} defaultValue={isShowObjectSize} onChange={this.onEnableChange} style={{ marginLeft: 30 }} />
         </div>
       </div>
     )

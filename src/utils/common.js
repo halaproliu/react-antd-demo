@@ -1,17 +1,14 @@
 // 获取uuid
 function guid() {
   function S4() {
-    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
   }
-  return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+  return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4()
 }
 
 // 是否是空对象
 function isEmptyObj(obj) {
-  for (let i in obj) {
-    return false
-  }
-  return true
+  return Object.keys(obj).length === 0
 }
 
 // 判断数据类型
@@ -42,11 +39,4 @@ function processJsonString(value) {
   return value
 }
 
-export {
-  guid,
-  isEmptyObj,
-  isType,
-  isPlainObject,
-  isArray,
-  processJsonString
-}
+export { guid, isEmptyObj, isType, isPlainObject, isArray, processJsonString }

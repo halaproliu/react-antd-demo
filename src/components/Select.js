@@ -18,7 +18,7 @@ class MySelect extends Component {
   }
 
   render() {
-    const { title, defaultValue, options, style } = this.props
+    const { title, defaultValue, options, style, disabled } = this.props
     let optionEl
     if (isPlainObject(options[0])) {
       optionEl = (
@@ -36,7 +36,7 @@ class MySelect extends Component {
     return (
       <div className="flex" style={style}>
         <span>{title}</span>
-        <Select defaultValue={defaultValue} style={{ width: 240 }} onChange={this.onChange}>
+        <Select defaultValue={defaultValue} style={{ width: 240 }} disabled={disabled} onChange={this.onChange}>
           {optionEl}
         </Select>
       </div>
