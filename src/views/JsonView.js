@@ -3,7 +3,7 @@ import ReactJson from 'react-json-view'
 
 import { THEME, ICON_STYLE, STATUS_LIST } from '@/constant'
 import { MySelect } from '@/components'
-import { processJsonString } from 'utils/common'
+import { parseStr2Json } from 'utils/common'
 import { Input } from 'antd'
 const { TextArea } = Input
 
@@ -41,20 +41,11 @@ class JsonView extends Component {
 
   onTextAreaChange(e) {
     let value = e.target.value
-    let jsonObject = {}
-    try {
-      value = processJsonString(value) // 处理不规范的json字符串
-      console.log(value)
-      jsonObject = JSON.parse(value)
-      this.setState({
-        jsonValue: value,
-        jsonObject: jsonObject
-      })
-    } catch (e) {
-      this.setState({
-        jsonValue: value
-      })
-    }
+    let jsonObject = parseStr2Json(value)
+    this.setState({
+      jsonValue: value,
+      jsonObject: jsonObject
+    })
   }
 
   onEdit(edit) {
@@ -75,7 +66,16 @@ class JsonView extends Component {
       <div>
         <TextArea value={jsonValue} placeholder="Enter the json object" autosize={{ minRows: 4 }} onChange={this.onTextAreaChange} />
         {/* {reactJson} */}
-        <ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0} enableClipboard={isEnableClipboard === 0} displayObjectSize={isShowObjectSize === 0} onEdit={this.onEdit} />
+        <ReactJson
+          style={{ marginTop: 40 }}
+          src={jsonObject}
+          theme={theme}
+          iconStyle={iconStyle}
+          displayDataTypes={isShowDataTypes === 0}
+          enableClipboard={isEnableClipboard === 0}
+          displayObjectSize={isShowObjectSize === 0}
+          onEdit={this.onEdit}
+        />
         <div className="flex" style={{ marginTop: 40 }}>
           <MySelect title="主题：" type="theme" options={THEME} defaultValue={theme} onChange={this.onChange} />
           <MySelect title="图标样式：" type="iconStyle" options={ICON_STYLE} defaultValue={iconStyle} onChange={this.onChange} style={{ marginLeft: 30 }} />
