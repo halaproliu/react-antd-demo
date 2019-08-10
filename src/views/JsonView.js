@@ -69,7 +69,7 @@ class JsonView extends Component {
     return (
       <div>
         <TextArea value={jsonValue} placeholder="Enter the json object" autosize={{ minRows: 4 }} onChange={this.onTextAreaChange} />
-        {this.state.isError ? <p style={{ marginTop: 20, color: 'red' }}>请输入正确的json字符串</p> : null}
+        {this.state.isError ? <p style={{ marginTop: 20, color: 'rgb(245, 34, 45)' }}>请输入正确的json字符串</p> : null}
         {isEnableEdit === 0
           ? <ReactJson
               style={{ marginTop: 40 }}

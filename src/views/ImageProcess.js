@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Upload, Card, Button, Icon } from 'antd'
+import { Upload, Card, Button, Icon, message } from 'antd'
 import { MySlider } from '../components'
 import { guid } from 'utils/common'
 
@@ -8,6 +8,7 @@ class MyUpload extends Component {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.onSliderChange = this.onSliderChange.bind(this)
+    this.showMessage = this.showMessage.bind(this)
   }
   state = {
     img: '',
@@ -34,7 +35,7 @@ class MyUpload extends Component {
     }
     const reader = new FileReader()
     reader.readAsDataURL(info.file.originFileObj)
-    reader.onload = (e) => {
+    reader.onload = e => {
       this.setState({
         img: e.target.result,
         filterObj: {
@@ -79,6 +80,9 @@ class MyUpload extends Component {
 
   cssImageToPureImage() {
     const dom = document.getElementById('inputImg')
+    if (!dom) {
+      return this.showMessage('请先上传图片')
+    }
     const pixelRatio = window.devicePixelRatio || 1
     // 图片宽高
     const width = dom.offsetWidth * pixelRatio
@@ -106,7 +110,12 @@ class MyUpload extends Component {
         ctx.drawImage(svgImg, 0, 0, width, height)
         this.downloadImage(canvas.toDataURL('image/jpeg'))
       }
-      svgImg.src = 'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '"><foreignObject x="0" y="0" width="100%" height="100%">' +
+      svgImg.src =
+        'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="' +
+        width +
+        '" height="' +
+        height +
+        '"><foreignObject x="0" y="0" width="100%" height="100%">' +
         new XMLSerializer().serializeToString(cloneDom).replace(/#/g, '%23').replace(/\n/g, '%0A') +
         '</foreignObject></svg>'
     }
@@ -119,6 +128,10 @@ class MyUpload extends Component {
     a.download = filename
     a.click()
   }
+
+  showMessage(msg = '', type = 'error') {
+    message[type](msg)
+  }
   render() {
     let uploadImg
     const { img } = this.state
@@ -126,9 +139,9 @@ class MyUpload extends Component {
       if (Object.keys(this.state.filterObj).some(key => this.state.filterObj[key] > 0)) {
         const filter = this.packageFiter()
         const filterValue = { filter: filter }
-        uploadImg = (<Card style={{ width: 300 }} cover={<img id="inputImg" src={img} alt="" style={filterValue} />} bodyStyle={{ display: 'none' }} />)
+        uploadImg = <Card style={{ width: 300 }} cover={<img id="inputImg" src={img} alt="" style={filterValue} />} bodyStyle={{ display: 'none' }} />
       } else {
-        uploadImg = (<Card style={{ width: 300 }} cover={<img id="inputImg" src={img} alt="" />} bodyStyle={{ display: 'none' }} />)
+        uploadImg = <Card style={{ width: 300 }} cover={<img id="inputImg" src={img} alt="" />} bodyStyle={{ display: 'none' }} />
       }
     }
     const style = {
@@ -143,22 +156,22 @@ class MyUpload extends Component {
           </Button>
         </Upload>
         <div className="flex" style={{ marginTop: 40 }}>
-          <MySlider title="模糊：" type="blur" value={this.state.filterObj.blur} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={style} title="亮度：" type="brightness" value={this.state.filterObj.brightness} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={style} title="对比度：" type="contrast" value={this.state.filterObj.contrast} onChange={this.onSliderChange}></MySlider>
+          <MySlider title="模糊：" type="blur" value={this.state.filterObj.blur} onChange={this.onSliderChange} />
+          <MySlider style={style} title="亮度：" type="brightness" value={this.state.filterObj.brightness} onChange={this.onSliderChange} />
+          <MySlider style={style} title="对比度：" type="contrast" value={this.state.filterObj.contrast} onChange={this.onSliderChange} />
         </div>
         <div className="flex" style={{ marginTop: 10 }}>
-          <MySlider title="灰度：" type="grayscale" value={this.state.filterObj.grayscale} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={style} title="透明度：" type="opacity" value={this.state.filterObj.opacity} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={style} title="饱和度：" type="saturate" value={this.state.filterObj.saturate} onChange={this.onSliderChange}></MySlider>
+          <MySlider title="灰度：" type="grayscale" value={this.state.filterObj.grayscale} onChange={this.onSliderChange} />
+          <MySlider style={style} title="透明度：" type="opacity" value={this.state.filterObj.opacity} onChange={this.onSliderChange} />
+          <MySlider style={style} title="饱和度：" type="saturate" value={this.state.filterObj.saturate} onChange={this.onSliderChange} />
         </div>
         <div className="flex" style={{ marginTop: 10 }}>
-          <MySlider title="色相旋转：" type="hue-rotate" value={this.state.filterObj['hue-rotate']} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={style} title="反转图像：" type="invert" value={this.state.filterObj.invert} onChange={this.onSliderChange}></MySlider>
-          <MySlider style={style} title="深褐色：" type="sepia" value={this.state.filterObj.sepia} onChange={this.onSliderChange}></MySlider>
+          <MySlider title="色相旋转：" type="hue-rotate" value={this.state.filterObj['hue-rotate']} onChange={this.onSliderChange} />
+          <MySlider style={style} title="反转图像：" type="invert" value={this.state.filterObj.invert} onChange={this.onSliderChange} />
+          <MySlider style={style} title="深褐色：" type="sepia" value={this.state.filterObj.sepia} onChange={this.onSliderChange} />
         </div>
         <Button style={{ marginTop: 20 }} onClick={this.cssImageToPureImage.bind(this, img)}>
-          <Icon type="download"></Icon>下载图片
+          <Icon type="download" />下载图片
         </Button>
       </div>
     )
