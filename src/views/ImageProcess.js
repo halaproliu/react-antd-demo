@@ -3,7 +3,7 @@ import { Upload, Card, Button, Icon, message } from 'antd'
 import { MySlider } from '../components'
 import { guid } from 'utils/common'
 
-class MyUpload extends Component {
+class ImageProcess extends Component {
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
@@ -178,4 +178,4 @@ class MyUpload extends Component {
   }
 }
 
-export default MyUpload
+export default ImageProcess
