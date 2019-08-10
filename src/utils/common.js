@@ -32,14 +32,15 @@ function isArray(obj) {
 // 转换不规范的json字符串为规范的格式
 function parseStr2Json(value) {
   if (!value) return ''
+  let tempValue = value
   let jsonObject
   try {
-    jsonObject = JSON.parse(value)
+    tempValue = tempValue.replace(/'/g, '"') // 转换单引号为双引号
+    tempValue = tempValue.replace(/\s*/g, '') // 去除所有空格
+    jsonObject = JSON.parse(tempValue)
   } catch (e) {
-    value = value.replace(/(?:\s*['"]*)?([a-zA-Z0-9]+)(?:['"]*\s*)?:/g, '"$1":') // 为没有引号的key值添加双引号
-    value = value.replace(/'/g, '"') // 转换单引号为双引号
-    value = value.replace(/\s*/g, '') // 去除所有空格
-    jsonObject = JSON.parse(value)
+    tempValue = tempValue.replace(/(?:\s*['"]*)?([a-zA-Z0-9]+)(?:['"]*\s*)?:/g, '"$1":') // 为没有引号的key值添加双引号
+    jsonObject = JSON.parse(tempValue)
   }
   return jsonObject
 }

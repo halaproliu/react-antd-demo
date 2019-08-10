@@ -11,6 +11,7 @@ class JsonView extends Component {
   state = {
     jsonObject: {}, // 格式化后的json对象
     jsonValue: '', // 输入的json字符串
+    isError: false, // 是否显示错误提示
     theme: 'rjv-default', // 主题
     iconStyle: 'circle', // 图标样式
     isEnableEdit: 0, // 是否可以编辑
@@ -41,11 +42,20 @@ class JsonView extends Component {
 
   onTextAreaChange(e) {
     let value = e.target.value
-    let jsonObject = parseStr2Json(value)
-    this.setState({
-      jsonValue: value,
-      jsonObject: jsonObject
-    })
+    try {
+      let jsonObject = parseStr2Json(value)
+      this.setState({
+        isError: false,
+        jsonValue: value,
+        jsonObject: jsonObject
+      })
+    } catch (e) {
+      this.setState({
+        isError: true,
+        jsonValue: value,
+        jsonObject: {}
+      })
+    }
   }
 
   onEdit(edit) {
@@ -56,32 +66,36 @@ class JsonView extends Component {
   }
   render() {
     const { theme, iconStyle, jsonObject, jsonValue, isEnableEdit, isShowDataTypes, isEnableClipboard, isShowObjectSize } = this.state
-    // let reactJson
-    // if (isEnableEdit === 0) {
-    //   reactJson = (<ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0} onEdit={this.onEdit}></ReactJson>)
-    // } else {
-    //   reactJson = (<ReactJson style={{ marginTop: 40 }} src={jsonObject} theme={theme} iconStyle={iconStyle} displayDataTypes={isShowDataTypes === 0}></ReactJson>)
-    // }
     return (
       <div>
         <TextArea value={jsonValue} placeholder="Enter the json object" autosize={{ minRows: 4 }} onChange={this.onTextAreaChange} />
-        {/* {reactJson} */}
-        <ReactJson
-          style={{ marginTop: 40 }}
-          src={jsonObject}
-          theme={theme}
-          iconStyle={iconStyle}
-          displayDataTypes={isShowDataTypes === 0}
-          enableClipboard={isEnableClipboard === 0}
-          displayObjectSize={isShowObjectSize === 0}
-          onEdit={this.onEdit}
-        />
+        {this.state.isError ? <p style={{ marginTop: 20, color: 'red' }}>请输入正确的json字符串</p> : null}
+        {isEnableEdit === 0
+          ? <ReactJson
+              style={{ marginTop: 40 }}
+              src={jsonObject}
+              theme={theme}
+              iconStyle={iconStyle}
+              displayDataTypes={isShowDataTypes === 0}
+              enableClipboard={isEnableClipboard === 0}
+              displayObjectSize={isShowObjectSize === 0}
+              onEdit={this.onEdit}
+            />
+          : <ReactJson
+              style={{ marginTop: 40 }}
+              src={jsonObject}
+              theme={theme}
+              iconStyle={iconStyle}
+              displayDataTypes={isShowDataTypes === 0}
+              enableClipboard={isEnableClipboard === 0}
+              displayObjectSize={isShowObjectSize === 0}
+            />}
         <div className="flex" style={{ marginTop: 40 }}>
           <MySelect title="主题：" type="theme" options={THEME} defaultValue={theme} onChange={this.onChange} />
           <MySelect title="图标样式：" type="iconStyle" options={ICON_STYLE} defaultValue={iconStyle} onChange={this.onChange} style={{ marginLeft: 30 }} />
         </div>
         <div className="flex" style={{ marginTop: 40 }}>
-          <MySelect title="是否可以编辑：" disabled type="isEnableEdit" options={STATUS_LIST} defaultValue={isEnableEdit} onChange={this.onEnableChange} />
+          <MySelect title="是否可以编辑：" type="isEnableEdit" options={STATUS_LIST} defaultValue={isEnableEdit} onChange={this.onEnableChange} />
           <MySelect title="是否显示数据类型：" type="isShowDataTypes" options={STATUS_LIST} defaultValue={isShowDataTypes} onChange={this.onEnableChange} style={{ marginLeft: 30 }} />
         </div>
         <div className="flex" style={{ marginTop: 40 }}>
