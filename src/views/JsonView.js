@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import ReactJson from 'react-json-view'
 
-import { THEME, ICON_STYLE, STATUS_LIST } from '@/constant'
-import { MySelect } from '@/components'
-import { parseStr2Json } from 'utils/common'
+import { THEME, ICON_STYLE, STATUS_LIST } from '../constant'
+import { MySelect } from '../components'
+import { parseStr2Json } from '../utils/common'
 import { Input } from 'antd'
 import { connect } from 'react-redux'
 import { jsonViews } from '../actions'
@@ -58,7 +58,7 @@ class JsonView extends Component {
       jsonObject: edit.updated_src
     })
   }
-  
+
   render() {
     const { jsonObject, jsonValue } = this.state
     const { theme, iconStyle, isEnableEdit, isShowDataTypes, isEnableClipboard, isShowObjectSize } = this.props.jsonViews
@@ -68,24 +68,24 @@ class JsonView extends Component {
         {this.state.isError ? <p style={{ marginTop: 20, color: 'rgb(245, 34, 45)' }}>请输入正确的json字符串</p> : null}
         {isEnableEdit === 0
           ? <ReactJson
-              style={{ marginTop: 40 }}
-              src={jsonObject}
-              theme={theme}
-              iconStyle={iconStyle}
-              displayDataTypes={isShowDataTypes === 0}
-              enableClipboard={isEnableClipboard === 0}
-              displayObjectSize={isShowObjectSize === 0}
-              onEdit={this.onEdit}
-            />
+            style={{ marginTop: 40 }}
+            src={jsonObject}
+            theme={theme}
+            iconStyle={iconStyle}
+            displayDataTypes={isShowDataTypes === 0}
+            enableClipboard={isEnableClipboard === 0}
+            displayObjectSize={isShowObjectSize === 0}
+            onEdit={this.onEdit}
+          />
           : <ReactJson
-              style={{ marginTop: 40 }}
-              src={jsonObject}
-              theme={theme}
-              iconStyle={iconStyle}
-              displayDataTypes={isShowDataTypes === 0}
-              enableClipboard={isEnableClipboard === 0}
-              displayObjectSize={isShowObjectSize === 0}
-            />}
+            style={{ marginTop: 40 }}
+            src={jsonObject}
+            theme={theme}
+            iconStyle={iconStyle}
+            displayDataTypes={isShowDataTypes === 0}
+            enableClipboard={isEnableClipboard === 0}
+            displayObjectSize={isShowObjectSize === 0}
+          />}
         <div className="flex" style={{ marginTop: 40 }}>
           <MySelect title="主题：" type="theme" options={THEME} defaultValue={theme} onChange={this.onChange} />
           <MySelect title="图标样式：" type="iconStyle" options={ICON_STYLE} defaultValue={iconStyle} onChange={this.onChange} style={{ marginLeft: 30 }} />

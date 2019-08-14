@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Upload, Card, Button, Icon, message } from 'antd'
 import { MySlider } from '../components'
-import { guid } from 'utils/common'
+import { guid } from '../utils/common'
 
 class ImageProcess extends Component {
   constructor(props) {

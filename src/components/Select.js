@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { isPlainObject } from 'utils/common'
+import { isPlainObject } from '../utils/common'
 import { Select } from 'antd'
 const { Option } = Select
 
