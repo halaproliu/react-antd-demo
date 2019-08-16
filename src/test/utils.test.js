@@ -10,5 +10,6 @@ it('isPlainObject', () => {
   expect(isPlainObject(new Object())).toEqual(true)
   expect(isPlainObject(11)).toEqual(false)
   expect(isPlainObject('a')).toEqual(false)
+  expect(isPlainObject([])).toEqual(false)
 })
 
