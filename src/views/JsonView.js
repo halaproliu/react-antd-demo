@@ -37,7 +37,7 @@ class JsonView extends Component {
   onTextAreaChange(e) {
     let value = e.target.value
     try {
-      let jsonObject = parseStr2Json(value)
+      let jsonObject = parseStr2Json(value) || {}
       this.setState({
         isError: false,
         jsonValue: value,
