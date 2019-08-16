@@ -12,4 +12,5 @@ if (!shell.which('git')) {
 
 shell.exec('git add .')
 shell.exec('git commit -m "auto commit"')
-shell.exec('git push')
+shell.exec('git push github master')
+shell.exec('git push gitee master')
