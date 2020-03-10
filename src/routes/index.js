@@ -46,15 +46,15 @@ const routes = [
     icon: 'snippets',
     menuKey: 'json',
     component: JsonView
-  },
-  {
-    path: '/mediaPlayer',
-    exact: true,
-    title: '播放器',
-    icon: 'play-circle',
-    menuKey: 'mediaPlayer',
-    component: MediaPlayer
   }
+  // {
+  //   path: '/mediaPlayer',
+  //   exact: true,
+  //   title: '播放器',
+  //   icon: 'play-circle',
+  //   menuKey: 'mediaPlayer',
+  //   component: MediaPlayer
+  // }
 ]
 
 export default routes
