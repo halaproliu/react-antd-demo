@@ -40,6 +40,8 @@ function parseStr2Json(value) {
     jsonObject = JSON.parse(tempValue)
   } catch (e) {
     tempValue = tempValue.replace(/(?:\s*['"]*)?([a-zA-Z0-9]+)(?:['"]*\s*)?:/g, '"$1":') // 为没有引号的key值添加双引号
+    tempValue = tempValue.replace(/(https|http)":/g, '$1:')
+    console.log(tempValue)
     jsonObject = JSON.parse(tempValue)
   }
   return jsonObject
