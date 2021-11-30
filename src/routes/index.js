@@ -4,7 +4,8 @@ import MyList from '../views/List'
 import ImageProcess from '../views/ImageProcess'
 import Table from '../views/Table'
 import JsonView from '../views/JsonView'
-import MediaPlayer from '../views/MediaPlayer'
+import flowchart from '../views/flowchart'
+// import MediaPlayer from '../views/MediaPlayer'
 
 const routes = [
   {
@@ -46,6 +47,14 @@ const routes = [
     icon: 'snippets',
     menuKey: 'json',
     component: JsonView
+  },
+  {
+    path: '/flowchart',
+    exact: true,
+    title: 'flowchart',
+    icon: 'snippets',
+    menuKey: 'flowchart',
+    component: flowchart
   }
   // {
   //   path: '/mediaPlayer',

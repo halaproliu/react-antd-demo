@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { List, Avatar } from 'antd'
+import qs from 'qs'
 
 class MyList extends Component {
   state = {
@@ -18,6 +19,28 @@ class MyList extends Component {
     }]
   }
   render() {
+    let opts = {
+        "chainOfBusDates": [
+            {
+                "jobIds": [
+                    2058798,
+                    2058797,
+                    2058796,
+                    2058683,
+                    2060049
+                ],
+                "startBusDate": "2021-11-28",
+                "endBusDate": "2021-11-29"
+            }
+        ],
+        "executeType": 1,
+        "instanceStatus": [],
+        "runStartTime": "2021-11-29 00:00:00",
+        "runEndTime": "2021-11-29 20:14:07"
+    }
+    console.log(window)
+    let res = qs.stringify(opts, { arrayFormat: 'repeat' })
+    console.log(res)
     return (
       <List dataSource={this.state.data}
         renderItem={item => (

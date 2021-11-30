@@ -1,0 +1,25 @@
+@import './color.styl'
+.flowchart
+  position relative
+  &-ops
+    position absolute
+    width 100%
+    height 100%
+    list-style none
+    &__item
+      width 140px
+      color #fff
+      box-sizing border-box
+      display block
+      border-radius 8px
+      height 50px
+      line-height 50px
+      border 2px solid success
+      text-align center
+      position absolute
+      &-text
+        height 50%
+        line-height 1
+        padding 5px
+        &:first-child
+          background success

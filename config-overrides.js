@@ -12,6 +12,23 @@ function modifyOutputPath(config) {
   paths.appBuild = path.join(path.dirname(paths.appBuild), 'docs')
   return config
 }
+const stylus = () => config => {
+  const stylusLoader = {
+    test: /\.styl$/,
+    use: [
+      {
+        loader: 'style-loader'
+      }, {
+        loader: 'css-loader',
+      }, {
+        loader: 'stylus-loader'
+      }
+    ]
+  }
+  const oneOf = config.module.rules.find(rule => rule.oneOf).oneOf
+  oneOf.unshift(stylusLoader)
+  return config
+}
 module.exports = override(
   fixBabelImports('import', {
     libraryName: 'antd',
@@ -27,5 +44,6 @@ module.exports = override(
     '~': path.resolve(__dirname, 'public', 'imgs'),
     'utils': path.resolve(__dirname, 'src', 'utils')
   }),
-  modifyOutputPath()
+  modifyOutputPath(),
+  stylus()
 );
