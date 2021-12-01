@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import '@/assets/style/flowchart.styl'
 
 function flowchart(props) {
@@ -64,20 +64,35 @@ function flowchart(props) {
       top: 433,
     },
   ]
+  let refs = operators.map(_ => useRef())
+  const initPostion = (ops, midX, midY) => {
+    console.log(refs[0].current.offsetWidth)
+    console.log(refs[0].current.offsetHeight)
+  }
+  useEffect(() => {
+    let el = document.querySelector('.ant-layout-content')
+    let w = el.clientWidth
+    let h = el.clientHeight
+    let midX = w / 2
+    let midY = h / 2
+    console.log(midX, midY)
+    initPostion(operators, midX, midY)
+  })
   return (
     <div className="flowchart">
       <svg>
         { operators.map(op => {
+          let d = `M`
           return <path d="" key={op.id}></path>
         })}
       </svg>
       <ul className="flowchart-ops">
         {
-          operators.map(op => {
+          operators.map((op, i) => {
             let { left, top, title, subtitle } = op
             let position = { left, top }
             return (
-              <li className="flowchart-ops__item" key={op.id} style={ position }>
+              <li ref={refs[i]} className="flowchart-ops__item" key={op.id} style={ position }>
                 <div className="flowchart-ops__item-text">{title}</div>
                 <div className="flowchart-ops__item-text">{subtitle}</div>
               </li>
