@@ -1,6 +1,8 @@
 @import './color.styl'
 .flowchart
   position relative
+  width 1000px
+  height 500px
   &-ops
     position absolute
     width 100%
@@ -25,3 +27,15 @@
           background success
         &:last-child
           color #b7bacd
+  &-links
+    width 100%
+    height 100%
+    position absolute
+    overflow visible
+    svg
+      overflow visible
+  &-link
+    fill none
+    stroke #20a0ff
+    transition stroke .5s
+    stroke-width 3
