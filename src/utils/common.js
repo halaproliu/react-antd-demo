@@ -47,4 +47,13 @@ function parseStr2Json(value) {
   return jsonObject
 }
 
-export { guid, isEmptyObj, isType, isPlainObject, isArray, parseStr2Json }
+/**
+ * @description: 是否是移动端
+ * @return {*}
+ **/
+function isMobile() {
+  const userAgent = navigator.userAgent.toLowerCase()
+  return /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i.test(userAgent)
+}
+
+export { guid, isEmptyObj, isType, isPlainObject, isArray, parseStr2Json, isMobile }

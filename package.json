@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.16.2",
+    "crypto-js": "^4.1.1",
     "customize-cra": "^0.4.1",
     "qs": "^6.10.1",
     "react": "^16.8.6",

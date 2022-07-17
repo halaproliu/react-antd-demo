@@ -10,7 +10,6 @@ const jsonViews = (state = initialState, { type, key, value }) => {
   switch (type) {
     case 'TOGGLE_STATE':
       const tempState = { ...state }
-      console.log('ddddd:', value)
       tempState[key] = value
       return {
         ...state,

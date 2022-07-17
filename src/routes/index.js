@@ -5,6 +5,7 @@ import ImageProcess from '../views/ImageProcess'
 import Table from '../views/Table'
 import JsonView from '../views/JsonView'
 import flowchart from '../views/flowchart'
+import MD5Page from '../views/MD5Page'
 // import MediaPlayer from '../views/MediaPlayer'
 
 const routes = [
@@ -55,6 +56,14 @@ const routes = [
     icon: 'snippets',
     menuKey: 'flowchart',
     component: flowchart
+  },
+  {
+    path: '/md5',
+    exact: true,
+    title: 'md5',
+    icon: 'snippets',
+    menuKey: 'md5Page',
+    component: MD5Page
   }
   // {
   //   path: '/mediaPlayer',
