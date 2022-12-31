@@ -13,7 +13,7 @@
     "react-json-view": "^1.19.1",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "2.1.8",
+    "react-scripts": "5.0.1",
     "redux": "^4.0.4"
   },
   "scripts": {
@@ -38,11 +38,11 @@
     "babel-plugin-import": "^1.12.0",
     "gh-pages": "^2.1.1",
     "less": "^3.9.0",
-    "less-loader": "^5.0.0",
+    "less-loader": "^11.1.0",
     "redux-devtools": "^3.5.0",
     "shelljs": "^0.8.3",
     "stylus": "^0.55.0",
-    "stylus-loader": "^3.0.2"
+    "stylus-loader": "^7.1.0"
   },
   "homepage": "http://halaproliu.github.io/react-antd-demo"
 }
